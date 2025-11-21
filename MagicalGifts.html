@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Gifts - Your Portal to Wizarding Wonders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #f4f4f4;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #8b0000, #ffd700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
+            border: 3px solid #ffd700;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .subtitle {
+            color: #c4c4c4;
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #2d2d44, #1a1a2e);
+        }
+
+        .product-title {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .product-description {
+            color: #d4d4d4;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .product-link {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #8b0000, #b30000);
+            color: #ffd700;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid #ffd700;
+            font-size: 1em;
+        }
+
+        .product-link:hover {
+            background: linear-gradient(135deg, #b30000, #8b0000);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            transform: scale(1.02);
+        }
+
+        .add-product-btn {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px dashed rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .add-product-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #ffd700;
+        }
+
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 5px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #8b0000, #b30000);
+            color: #ffd700;
+        }
+
+        .cancel-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">⚡</div>
+            <h1>Magical Gifts</h1>
+            <p class="subtitle">Enchanting Treasures for Every Witch & Wizard</p>
+        </div>
+
+        <div id="products-container">
+            <!-- Sample Product 1 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1618944847828-82e943c3bdb7?w=600&h=400&fit=crop" alt="Harry Potter Wand" class="product-image">
+                <h3 class="product-title">Interactive Wizarding Wand</h3>
+                <p class="product-description">Experience the magic with this authentic replica wand. Perfect for spell-casting practice and display. Comes with a beautiful collector's box.</p>
+                <a href="#" class="product-link">🛒 Shop This Magical Item</a>
+            </div>
+
+            <!-- Sample Product 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=400&fit=crop" alt="Hogwarts House Mug" class="product-image">
+                <h3 class="product-title">Hogwarts House Mug Collection</h3>
+                <p class="product-description">Sip your morning potion in style! These color-changing mugs reveal your house crest when filled with hot liquid. Available for all four houses.</p>
+                <a href="#" class="product-link">🛒 Shop This Magical Item</a>
+            </div>
+
+            <!-- Sample Product 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&h=400&fit=crop" alt="Marauder's Map" class="product-image">
+                <h3 class="product-title">Marauder's Map Replica</h3>
+                <p class="product-description">I solemnly swear that I am up to no good! A highly detailed replica of the famous map. Perfect for any fan's collection.</p>
+                <a href="#" class="product-link">🛒 Shop This Magical Item</a>
+            </div>
+        </div>
+
+        <button class="add-product-btn" onclick="openModal()">✨ Add New Product</button>
+
+        <div class="footer">
+            <p>✨ All products are affiliate links from Amazon ✨</p>
+            <p>Mischief Managed 🪄</p>
+        </div>
+    </div>
+
+    <!-- Modal for adding products -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: #ffd700; margin-bottom: 20px;">Add New Product</h2>
+            <input type="text" id="productTitle" placeholder="Product Title">
+            <input type="url" id="productImage" placeholder="Image URL">
+            <textarea id="productDescription" rows="4" placeholder="Product Description"></textarea>
+            <input type="url" id="productLink" placeholder="Amazon Affiliate Link">
+            <div style="margin-top: 20px;">
+                <button class="save-btn" onclick="addProduct()">Save Product</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+            clearForm();
+        }
+
+        function clearForm() {
+            document.getElementById('productTitle').value = '';
+            document.getElementById('productImage').value = '';
+            document.getElementById('productDescription').value = '';
+            document.getElementById('productLink').value = '';
+        }
+
+        function addProduct() {
+            const title = document.getElementById('productTitle').value;
+            const image = document.getElementById('productImage').value;
+            const description = document.getElementById('productDescription').value;
+            const link = document.getElementById('productLink').value;
+
+            if (!title || !link) {
+                alert('Please fill in at least the title and link!');
+                return;
+            }
+
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <img src="${image || 'https://images.unsplash.com/photo-1618944847828-82e943c3bdb7?w=600&h=400&fit=crop'}" alt="${title}" class="product-image">
+                <h3 class="product-title">${title}</h3>
+                <p class="product-description">${description || 'A magical item that every wizard needs!'}</p>
+                <a href="${link}" class="product-link" target="_blank">🛒 Shop This Magical Item</a>
+            `;
+
+            document.getElementById('products-container').appendChild(productCard);
+            closeModal();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
